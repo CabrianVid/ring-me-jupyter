@@ -1,0 +1,23 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Build
+out/
+dist/
+
+# Environment
+.env
+*.env.*
+
+# VS Code
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# System
+.DS_Store
+Thumbs.db
+
+# Webpack
+.webpack/
