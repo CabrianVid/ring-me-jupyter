@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "ring-me-jupyter.helloWorld",
-        "title": "Hello World"
+      "command": "ringMeJupyter.toggleBell",
+      "title": "Toggle Cell Bell"
       }
     ]
   },

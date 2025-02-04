@@ -1,5 +1,13 @@
 # ring-me-jupyter README
 
+## Compile commands:
+
+```
+    npm install
+    npm run compile
+```
+
+
 This is the README for your extension "ring-me-jupyter". After writing up a brief description, we recommend including the following sections.
 
 ## Features

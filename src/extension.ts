@@ -1,27 +1,89 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+    console.log('TEST: Extension activated!');
+    vscode.window.showInformationMessage('Ring Me Jupyter is working!');
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('TEST: Extension activated!');
-	vscode.window.showInformationMessage('Ring Me Jupyter is working!');
+    const cellBells = new Map<vscode.NotebookCell, vscode.StatusBarItem>();
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	// const disposable = vscode.commands.registerCommand('ring-me-jupyter.helloWorld', () => {
-	// 	// The code you place here will be executed every time your command is executed
-	// 	// Display a message box to the user
-	// 	vscode.window.showInformationMessage('Hello World from ring-me-jupyter!');
-	// });
+    // Handle notebook opening and existing notebooks
+    vscode.workspace.onDidOpenNotebookDocument(notebook => {
+        notebook.getCells().forEach(cell => addBellToCell(cell, cellBells));
+    });
 
-	// context.subscriptions.push(disposable);
+    // Handle cell changes through document changes
+    vscode.workspace.onDidChangeNotebookDocument(e => {
+        // Handle added cells
+        e.contentChanges.forEach(change => {
+            change.addedCells.forEach(cell => addBellToCell(cell, cellBells));
+        });
+
+        // Handle removed cells
+        e.contentChanges.forEach(change => {
+            change.removedCells.forEach(cell => {
+                cellBells.get(cell)?.dispose();
+                cellBells.delete(cell);
+            });
+        });
+    });
+
+    // Track cell execution completion
+	vscode.workspace.onDidChangeNotebookDocument(e => {
+		e.cellChanges.forEach(change => {
+	  	if (change.executionSummary?.success !== undefined) {
+			const cell = change.cell;
+			if (cell.metadata?.notifyOnComplete) {
+		  	vscode.window.showInformationMessage(`Cell ${cell.index} finished!`);
+			}
+	  	}
+		});
+  	});
+
+    // Command registration
+	context.subscriptions.push(
+		vscode.commands.registerCommand('ringMeJupyter.toggleBell', async (cell: vscode.NotebookCell) => {
+			const newMetadata = {
+				...cell.metadata,
+				notifyOnComplete: !cell.metadata?.notifyOnComplete
+			};
+			
+			const edit = new vscode.WorkspaceEdit();
+			edit.set(cell.notebook.uri, [
+				vscode.NotebookEdit.updateCellMetadata(cell.index, newMetadata)
+			]);
+			await vscode.workspace.applyEdit(edit);
+			
+			
+			
+			updateBellIcon(cell, cellBells);
+		})
+	);
 }
 
-// This method is called when your extension is deactivated
+function addBellToCell(
+    cell: vscode.NotebookCell,
+    bellMap: Map<vscode.NotebookCell, vscode.StatusBarItem>
+) {
+    const bell = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+    bell.text = cell.metadata?.notifyOnComplete ? "🔔" : "🔕";
+    bell.tooltip = "Click to toggle execution notifications";
+    bell.command = {
+        command: 'ringMeJupyter.toggleBell',
+        title: 'Toggle Notification',
+        arguments: [cell]
+    };
+    bell.show();
+    bellMap.set(cell, bell);
+}
+
+function updateBellIcon(
+    cell: vscode.NotebookCell,
+    bellMap: Map<vscode.NotebookCell, vscode.StatusBarItem>
+) {
+    const bell = bellMap.get(cell);
+    if (bell) {
+        bell.text = cell.metadata?.notifyOnComplete ? "🔔" : "🔕";
+    }
+}
+
 export function deactivate() {}
