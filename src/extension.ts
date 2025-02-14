@@ -4,30 +4,8 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('TEST: Extension activated!');
     vscode.window.showInformationMessage('Ring Me Jupyter is working!');
 
-    const cellBells = new Map<vscode.NotebookCell, vscode.StatusBarItem>();
 
-    // Handle notebook opening and existing notebooks
-    vscode.workspace.onDidOpenNotebookDocument(notebook => {
-        notebook.getCells().forEach(cell => addBellToCell(cell, cellBells));
-    });
-
-    // Handle cell changes through document changes
-    vscode.workspace.onDidChangeNotebookDocument(e => {
-        // Handle added cells
-        e.contentChanges.forEach(change => {
-            change.addedCells.forEach(cell => addBellToCell(cell, cellBells));
-        });
-
-        // Handle removed cells
-        e.contentChanges.forEach(change => {
-            change.removedCells.forEach(cell => {
-                cellBells.get(cell)?.dispose();
-                cellBells.delete(cell);
-            });
-        });
-    });
-
-    // Track cell execution completion
+    //listens condition of cell
 	vscode.workspace.onDidChangeNotebookDocument(e => {
 		e.cellChanges.forEach(change => {
 	  	if (change.executionSummary?.success !== undefined) {
@@ -38,6 +16,16 @@ export function activate(context: vscode.ExtensionContext) {
 	  	}
 		});
   	});
+
+	
+	
+	context.subscriptions.push(
+        vscode.notebooks.registerNotebookCellStatusBarItemProvider(
+            "jupyter-notebook", //only for jupyter notebooks type file
+            new BellStatusBarItemProvider()
+        )
+    );
+
 
     // Command registration
 	context.subscriptions.push(
@@ -53,37 +41,31 @@ export function activate(context: vscode.ExtensionContext) {
 			]);
 			await vscode.workspace.applyEdit(edit);
 			
-			
-			
-			updateBellIcon(cell, cellBells);
+			//updateBellIcon(cell, cellBells);
 		})
 	);
 }
 
-function addBellToCell(
-    cell: vscode.NotebookCell,
-    bellMap: Map<vscode.NotebookCell, vscode.StatusBarItem>
-) {
-    const bell = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-    bell.text = cell.metadata?.notifyOnComplete ? "🔔" : "🔕";
-    bell.tooltip = "Click to toggle execution notifications";
-    bell.command = {
-        command: 'ringMeJupyter.toggleBell',
-        title: 'Toggle Notification',
-        arguments: [cell]
-    };
-    bell.show();
-    bellMap.set(cell, bell);
-}
 
-function updateBellIcon(
-    cell: vscode.NotebookCell,
-    bellMap: Map<vscode.NotebookCell, vscode.StatusBarItem>
-) {
-    const bell = bellMap.get(cell);
-    if (bell) {
-        bell.text = cell.metadata?.notifyOnComplete ? "🔔" : "🔕";
+class BellStatusBarItemProvider implements vscode.NotebookCellStatusBarItemProvider {
+    provideCellStatusBarItems(cell: vscode.NotebookCell): vscode.NotebookCellStatusBarItem[] {
+        //current state of the notification
+        const isEnabled = cell.metadata?.notifyOnComplete ?? false;
+
+        const bellItem = new vscode.NotebookCellStatusBarItem(
+            isEnabled ? "🔔 Notify On" : "🔕 Notify Off",
+            vscode.NotebookCellStatusBarAlignment.Right
+        );
+        bellItem.tooltip = "Toggle execution notification";
+		bellItem.command = {
+			command: "ringMeJupyter.toggleBell",
+			title: "Toggle Notification",
+			arguments: [cell]
+		};
+		
+        return [bellItem];
     }
 }
+
 
 export function deactivate() {}
