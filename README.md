@@ -10,6 +10,9 @@
 
 This is the README for your extension "ring-me-jupyter". After writing up a brief description, we recommend including the following sections.
 
+Press Ctrl + , (Windows/Linux) or Cmd + , (Mac) to open Settings.
+
+In search: Ring me Jupyter
 
 ![alt text](setting_email.png)
 

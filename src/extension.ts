@@ -3,10 +3,20 @@ import nodemailer from 'nodemailer';
 
 
 
-const RECIPIENT_EMAIL = "";
+//const RECIPIENT_EMAIL = "";
 
 
 async function sendEmail(cellIndex: number) {
+
+	const config = vscode.workspace.getConfiguration('ringMeJupyter');
+	const recipientEmail = config.get<string>('recipientEmail', ''); //email from settings
+
+	if (!recipientEmail) {
+		vscode.window.showErrorMessage("Please set your email in VS Code settings (Ring Me Jupyter: Recipient Email).");
+		return;
+	}
+
+
 	const transporter = nodemailer.createTransport({
 		host: 'smtp.hostinger.com',
 		port: 465,
@@ -19,14 +29,14 @@ async function sendEmail(cellIndex: number) {
 
 	const mailOptions = {
 		from: '', //sender email
-		to: RECIPIENT_EMAIL, //recipient
+		to: recipientEmail, //recipient
 		subject: `Jupyter Cell ${cellIndex} Execution Complete`,
 		text: `The cell at index ${cellIndex} has finished execution.`
 	};
 
 	try {
 		await transporter.sendMail(mailOptions);
-		console.log(`✅ Email sent successfully to ${RECIPIENT_EMAIL}`);
+		console.log(`✅ Email sent successfully to ${recipientEmail}`);
 	} catch (error) {
 		console.error("❌ Failed to send email:", error);
 	}
