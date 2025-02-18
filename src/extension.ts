@@ -6,8 +6,12 @@ import * as path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-console.log("SMTP_SERVER:", process.env.SENDER);
 
+if(process.env.SENDER){
+	console.log(".env file loaded successfully");
+}else{
+	console.error("Failed to load .env file");
+}
 
 
 const SENDER = process.env.SENDER || '';
@@ -23,7 +27,10 @@ async function sendEmail(cellIndex: number, cellOutput: string) {
 
 	if (!recipientEmail) {
 		vscode.window.showErrorMessage("Please set your email in VS Code settings (Ring Me Jupyter: Recipient Email).");
+		console.error("Recipient email not set.");
 		return;
+	}else{
+		console.log("Recipient email set to:", recipientEmail);
 	}
 
 
@@ -55,9 +62,9 @@ ${cellOutput || "No output available"}
 
 	try {
 		await transporter.sendMail(mailOptions);
-		console.log(`✅ Email sent successfully to ${recipientEmail}`);
+		console.log(`Email sent successfully to ${recipientEmail}`);
 	} catch (error) {
-		console.error("❌ Failed to send email:", error);
+		console.error("Failed to send email:", error);
 	}
 }
 
@@ -80,6 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 		  		vscode.window.showInformationMessage(`Cell ${cell.index} finished!`);
+				console.log(`Cell ${cell.index} finished!`);
 			  	sendEmail(cell.index, outputText); 
 			}
 	  	}
