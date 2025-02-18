@@ -19,7 +19,21 @@
         "command": "ringMeJupyter.toggleBell",
         "title": "Toggle Cell Bell"
       }
-    ]
+    ],
+
+    "configuration": {
+    "type": "object",
+    "title": "Ring Me Jupyter Settings",
+    "properties": {
+      "ringMeJupyter.recipientEmail": {
+        "type": "string",
+        "default": "",
+        "description": "Enter your email address to receive Jupyter execution notifications."
+      }
+    }
+  }
+
+
   },
     "scripts": {
     "vscode:prepublish": "npm run compile",

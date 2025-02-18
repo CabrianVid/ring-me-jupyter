@@ -10,6 +10,9 @@
 
 This is the README for your extension "ring-me-jupyter". After writing up a brief description, we recommend including the following sections.
 
+
+![alt text](setting_email.png)
+
 ## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
