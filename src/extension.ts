@@ -1,9 +1,10 @@
 import * as vscode from 'vscode';
 import nodemailer from 'nodemailer';
+import * as dotenv from 'dotenv';
 
-
-
-//const RECIPIENT_EMAIL = "";
+dotenv.config();
+const SENDER = process.env.SENDER || '';
+const SENDER_PASSWORD = process.env.SENDER_PASSWORD || '';
 
 
 async function sendEmail(cellIndex: number) {
@@ -22,13 +23,13 @@ async function sendEmail(cellIndex: number) {
 		port: 465,
 		secure: true, //SSL
 		auth: {
-			user: '', //sender email
-			pass: '' //password
+			user: SENDER, //sender email
+			pass: SENDER_PASSWORD //password
 		}
 	});
 
 	const mailOptions = {
-		from: '', //sender email
+		from: SENDER, //sender email
 		to: recipientEmail, //recipient
 		subject: `Jupyter Cell ${cellIndex} Execution Complete`,
 		text: `The cell at index ${cellIndex} has finished execution.`
