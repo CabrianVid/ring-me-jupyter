@@ -9,17 +9,19 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": ["*"],
+  "activationEvents": [
+    "*"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-      "command": "ringMeJupyter.toggleBell",
-      "title": "Toggle Cell Bell"
+        "command": "ringMeJupyter.toggleBell",
+        "title": "Toggle Cell Bell"
       }
     ]
   },
-  "scripts": {
+    "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "webpack",
     "watch": "webpack --watch",
