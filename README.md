@@ -1,85 +1,57 @@
-# ring-me-jupyter README
+# 🔔 Ring Me Jupyter
 
-## Compile commands:
+🔔 **Get notified when your Jupyter Notebook cells finish executing!**
 
-```
-    npm install
-    npm run compile
-```
+Ring Me Jupyter is a **VS Code extension** that sends **email notifications** when your Jupyter Notebook cells complete execution. Stay informed and boost productivity by receiving alerts directly in your inbox. This is especially useful for **long-running data science tasks** like **training neural networks, running large-scale simulations, or processing big datasets**, allowing you to focus on other work while waiting for results.
 
-
-This is the README for your extension "ring-me-jupyter". After writing up a brief description, we recommend including the following sections.
-
-Press Ctrl + , (Windows/Linux) or Cmd + , (Mac) to open Settings.
-
-In search: Ring me Jupyter
-
-![alt text](setting_email.png)
-
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 ---
 
-## Following extension guidelines
+## ⚙️ Setup
+### **1️⃣ Configure Your Email in VS Code Settings**
+1. Open **Settings**:
+   - **Windows & Linux:** (`Ctrl + ,`)
+   - **Mac:** (`Cmd + ,`)
+2. Search for `Ring Me Jupyter: Recipient Email`
+3. Enter your email address (e.g., `your-email@example.com`)
+4. Save settings ✅
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+![alt text](image.png)
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+### **2️⃣ Enable Notifications on a Cell**
+- Click on the **🔕/🔔 bell icon** next to a Jupyter cell to toggle email notifications.
 
-## Working with Markdown
+---
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
 
-## For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## 🔥 Features
+- ✅ **Real-time Email Alerts** - Receive an email from **alert@ringmejupyter.com** containing the cell’s output once execution is complete.
+- ✅ **Custom Email Configuration** - Set your recipient email inside VS Code settings.
+- ✅ **Simple Toggle Button** - Enable or disable notifications per cell.
+- ✅ **Works Seamlessly with Jupyter Notebooks** - No extra setup required.
+
+
+---
+
+## 💙 Support Development
+🔧 I would love to **improve Ring Me Jupyter** by adding **SMS notifications**, so users can receive alerts over text messages. Developing and maintaining this feature requires additional resources, and **your support helps make it possible**! If you find this extension useful, consider supporting me on Ko-fi:  
+[☕ Support on Ko-fi](https://ko-fi.com/ringmejupyter)
+
+Every contribution helps bring **SMS alerts** to life and keeps the project growing. Thank you! 🙌
+
+---
+
+## 📄 License
+Apache 2.0 License © 2025 Ring Me Jupyter
+
+---
+
+## 📌 Version
+**Current Version:** 1.0.0
+
+---
+
 
 **Enjoy!**

@@ -72,7 +72,7 @@ ${cellOutput || "No output available"}
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Extension Ring-Me-Jupyter activated!');
-    vscode.window.showInformationMessage('Ring Me Jupyter is working!');
+    //vscode.window.showInformationMessage('Ring Me Jupyter is working!');
 
     //listens condition of cell
 	vscode.workspace.onDidChangeNotebookDocument(e => {
@@ -117,8 +117,6 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.NotebookEdit.updateCellMetadata(cell.index, newMetadata)
 			]);
 			await vscode.workspace.applyEdit(edit);
-			
-			//updateBellIcon(cell, cellBells);
 		})
 	);
 }
