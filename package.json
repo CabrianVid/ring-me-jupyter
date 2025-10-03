@@ -2,7 +2,7 @@
   "name": "ring-me-jupyter",
   "displayName": "ring-me-jupyter",
   "description": "Notify when notebook cells complete",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "RingMeJupyter",
   "repository": {
     "type": "git",
