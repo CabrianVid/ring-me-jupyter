@@ -2,7 +2,12 @@
   "name": "ring-me-jupyter",
   "displayName": "ring-me-jupyter",
   "description": "Notify when notebook cells complete",
-  "version": "0.0.1",
+  "version": "1.0.1",
+  "publisher": "RingMeJupyter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CabrianVid/ring-me-jupyter"
+  },
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -10,7 +15,9 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onCommand:ringMeJupyter.toggleBell",
+    "onNotebook:jupyter-notebook",
+    "workspaceContains:**/*.ipynb"
   ],
   "main": "./out/extension.js",
   "contributes": {
