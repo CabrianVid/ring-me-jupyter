@@ -49,7 +49,7 @@ Apache 2.0 License © 2025 Ring Me Jupyter
 ---
 
 ## 📌 Version
-**Current Version:** 2.0.0
+**Current Version:** 1.0.3
 
 ---
 

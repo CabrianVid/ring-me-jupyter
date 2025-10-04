@@ -1,24 +1,12 @@
 import * as vscode from 'vscode';
 import nodemailer from 'nodemailer';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
-
-if(process.env.SENDER){
-	console.log(".env file loaded successfully");
-}else{
-	console.error("Failed to load .env file");
-}
-
-
-const SENDER = process.env.SENDER || '';
-const SENDER_PASSWORD = process.env.SENDER_PASSWORD || '';
-const SMTP_SERVER = process.env.SMTP_SERVER || '';
-const SMTP_PORT = parseInt(process.env.SMTP_PORT || '', 10);
-const SMTP_SECURE = process.env.SMTP_SECURE === 'true';
+// Pre-configured SMTP credentials - works everywhere
+const SENDER = '';
+const SENDER_PASSWORD = '';
+const SMTP_SERVER = '';
+const SMTP_PORT = 465;
+const SMTP_SECURE = true;
 
 async function sendEmail(cellIndex: number, cellOutput: string) {
 

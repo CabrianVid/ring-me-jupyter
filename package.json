@@ -2,8 +2,9 @@
   "name": "ring-me-jupyter",
   "displayName": "ring-me-jupyter",
   "description": "Notify when notebook cells complete",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "RingMeJupyter",
+  "icon": "RING-ME-JUPYTER.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/CabrianVid/ring-me-jupyter"
@@ -66,7 +67,6 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "dotenv": "^16.4.7",
     "nodemailer": "^6.10.0"
   }
 }
